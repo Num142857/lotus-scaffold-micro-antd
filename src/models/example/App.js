@@ -4,6 +4,7 @@ import './App.css'
 import { observable, action, autorun } from 'mobx'
 import { observer } from 'mobx-react'
 import { connect } from 'react-redux'
+import { DatePicker } from 'antd'
 class App extends Component {
   increment = () => {
     this.props.dispatch({ type: 'INCREMENT' })
@@ -39,6 +40,7 @@ class App extends Component {
           {this.props.count}
           <button onClick={this.globalDecrement}>全局事件 -</button>
         </div>
+        <DatePicker />
       </div>
     )
   }
