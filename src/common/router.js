@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 // import dynamic from 'dva/dynamic'
-import pathToRegexp from 'path-to-regexp'
+import pathToRegexp from 'path-to-regexp' // 路径参数转正则的标准工具
 import { getMenuData } from './menu'
 import asyncComponent from './asyncComponent'
 
@@ -146,6 +146,7 @@ export const getRouterData = app => {
     // Regular match item name
     // eg.  router /user/:id === /user/chen
     const pathRegexp = pathToRegexp(path)
+    // 转正则,有参数的url也不会有影响匹配
     const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`))
     let menuItem = {}
     // If menuKey is not empty

@@ -6,7 +6,10 @@ import DocumentTitle from 'react-document-title'
 import classNames from 'classnames'
 import NotFound from '../routes/Exception/404'
 import { getRoutes } from '../utils/utils'
+import { getMenuData } from '../common/menu'
+import SiderMenu from '../components/SiderMenu/'
 import './BasicLayout.less'
+
 // import Authorized from '../utils/Authorized'
 const { Header, Sider, Content } = Layout
 // const { AuthorizedRoute, check } = Authorized
@@ -40,14 +43,13 @@ export default class BasicLayout extends React.PureComponent {
       unenquireScreen(this.enquireHandler)
     }
     getPageTitle() {
-    //   const { routerData, location } = this.props
-    //   const { pathname } = location
-    //   let title = 'Ant Design Pro'
-    //   if (routerData[pathname] && routerData[pathname].name) {
-    //     title = `${routerData[pathname].name} - Ant Design Pro`
-    //   }
-    //   return title
-      return ''
+      const { routerData, location } = this.props
+      const { pathname } = location
+      let title = '金诚招采管理系统'
+      if (routerData[pathname] && routerData[pathname].name) {
+        title = `${routerData[pathname].name} - Ant Design Pro`
+      }
+      return title
     }
     getBashRedirect = () => {
       // According to the url parameter to redirect
@@ -95,32 +97,21 @@ export default class BasicLayout extends React.PureComponent {
         match,
         location,
       } = this.props
-      console.log(routerData, match, this.props)
+      const menus = getMenuData()
       const bashRedirect = this.getBashRedirect()
-      console.log(bashRedirect)
       const layout = (
         <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-          >
-            <div className='logo' />
-            <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-              <Menu.Item key='1'>
-                <Icon type='user' />
-                <span>nav 1</span>
-              </Menu.Item>
-              <Menu.Item key='2'>
-                <Icon type='video-camera' />
-                <span>nav 2</span>
-              </Menu.Item>
-              <Menu.Item key='3'>
-                <Icon type='upload' />
-                <span>nav 3</span>
-              </Menu.Item>
-            </Menu>
-          </Sider>
+          <SiderMenu
+            // logo={logo}
+            // 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
+            // If you do not have the Authorized parameter
+            // you will be forced to jump to the 403 interface without permission
+
+            menuData={getMenuData()}
+            collapsed={collapsed}
+            location={location}
+            onCollapse={this.handleMenuCollapse}
+          />
           <Layout >
             <Header style={{ background: '#fff', padding: 0 }}>
               <Icon
@@ -143,8 +134,8 @@ export default class BasicLayout extends React.PureComponent {
                   />
 
                 ))}
-                <Route render={NotFound} />
                 <Redirect exact from='/' to={bashRedirect} />
+                <Route render={NotFound} />
               </Switch>
             </Content>
           </Layout>
