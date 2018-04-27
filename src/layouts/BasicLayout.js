@@ -4,7 +4,6 @@ import { BrowserRouter, Route, hashHistory, Switch, Redirect, Link } from 'react
 import { ContainerQuery } from 'react-container-query'
 import DocumentTitle from 'react-document-title'
 import classNames from 'classnames'
-import Test from '../routes/index'
 import NotFound from '../routes/Exception/404'
 import { getRoutes } from '../utils/utils'
 import './BasicLayout.less'
@@ -98,6 +97,7 @@ export default class BasicLayout extends React.PureComponent {
       } = this.props
       console.log(routerData, match, this.props)
       const bashRedirect = this.getBashRedirect()
+      console.log(bashRedirect)
       const layout = (
         <Layout>
           <Sider
@@ -130,23 +130,21 @@ export default class BasicLayout extends React.PureComponent {
               />
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '100vh' }}>
-              <Test />
               <Switch>
                 {/* {redirectData.map(item => (
                   <Redirect key={item.from} exact from={item.from} to={item.to} />
                 ))} */}
+                {console.log(getRoutes(match.path, routerData))}
                 {getRoutes(match.path, routerData).map(item => (
                   <Route key={item.key}
                     path={item.path}
                     component={item.component}
                     exact={item.exact}
-                    authority={item.authority}
-                    redirectPath='/exception/403'
                   />
 
                 ))}
-                <Redirect exact from='/' to={bashRedirect} />
                 <Route render={NotFound} />
+                <Redirect exact from='/' to={bashRedirect} />
               </Switch>
             </Content>
           </Layout>

@@ -2,6 +2,7 @@ import { createElement } from 'react'
 // import dynamic from 'dva/dynamic'
 import pathToRegexp from 'path-to-regexp'
 import { getMenuData } from './menu'
+import asyncComponent from './asyncComponent'
 
 let routerDataCache
 
@@ -12,8 +13,8 @@ const modelNotExisted = (app, model) =>
   })
 
 // wrapper of dynamic
-const dynamicWrapper = (component) => {
-  return component()
+const dynamicWrapper = async () => {
+  return <Bundle load={component} />
 }
 
 function getFlatMenuData(menus) {
@@ -32,10 +33,10 @@ function getFlatMenuData(menus) {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(() => import('../layouts/BasicLayout')),
+      component: asyncComponent(() => import('../layouts/BasicLayout')),
     },
     '/test': {
-      component: dynamicWrapper(() => import('../routes/')),
+      component: asyncComponent(() => import('../routes/')),
     },
     // '/dashboard/monitor': {
     //   component: dynamicWrapper(() => import('../routes/Dashboard/Monitor')),
