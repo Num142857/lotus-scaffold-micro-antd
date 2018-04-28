@@ -47,7 +47,7 @@ export default class BasicLayout extends React.PureComponent {
       const { pathname } = location
       let title = '金诚招采管理系统'
       if (routerData[pathname] && routerData[pathname].name) {
-        title = `${routerData[pathname].name} - Ant Design Pro`
+        title = `${routerData[pathname].name} - 金诚招采管理系统`
       }
       return title
     }
@@ -122,10 +122,6 @@ export default class BasicLayout extends React.PureComponent {
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '100vh' }}>
               <Switch>
-                {/* {redirectData.map(item => (
-                  <Redirect key={item.from} exact from={item.from} to={item.to} />
-                ))} */}
-                {console.log(getRoutes(match.path, routerData))}
                 {getRoutes(match.path, routerData).map(item => (
                   <Route key={item.key}
                     path={item.path}

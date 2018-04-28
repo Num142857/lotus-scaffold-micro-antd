@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import App from './models/example/App'
 import BasicLayout from './layouts/BasicLayout'
+import UserLayout from './layouts/UserLayout'
 import { BrowserRouter, Route, hashHistory, Switch, Redirect } from 'react-router-dom'
 import { getRouterData } from './common/router'
 export default class RootComponent extends React.Component {
@@ -22,12 +23,14 @@ export default class RootComponent extends React.Component {
     render() {
       let ret = <div></div>
       const routerData = getRouterData()
+      let customProps = { routerData: routerData, globalEventDistributor: this.state.globalEventDistributor }
       console.log(routerData)
       if (this.state.store && this.state.globalEventDistributor) {
         ret = <Provider store={this.state.store}>
           <BrowserRouter>
             <Switch>
-              <Route path='/' render={props => <BasicLayout routerData={routerData} globalEventDistributor={this.state.globalEventDistributor} {...props} />} />
+              <Route path='/user' render={props => <UserLayout {...customProps} {...props} />} />
+              <Route path='/' render={props => <BasicLayout {...customProps} {...props} />} />
             </Switch>
           </BrowserRouter>
 

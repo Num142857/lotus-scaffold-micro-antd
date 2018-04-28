@@ -167,7 +167,6 @@ module.exports = {
           // in development "style" loader enables hot editing of CSS.
           {
             test: /.(css|less)$/,
-            exclude: [path.resolve(__dirname, '../src/index.less')],
             use: [
               require.resolve('style-loader'),
               {
@@ -175,9 +174,6 @@ module.exports = {
                 options: {
                   importLoaders: 1,
                 },
-              },
-              {
-                loader: require.resolve('less-loader') // compiles Less to CSS
               },
               {
                 loader: require.resolve('postcss-loader'),
@@ -198,6 +194,10 @@ module.exports = {
                     }),
                   ],
                 },
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+                options: { javascriptEnabled: true }
               },
 
             ],

@@ -1,5 +1,4 @@
-import { createElement } from 'react'
-// import dynamic from 'dva/dynamic'
+import React, { createElement } from 'react'
 import pathToRegexp from 'path-to-regexp' // 路径参数转正则的标准工具
 import { getMenuData } from './menu'
 import asyncComponent from './asyncComponent'
@@ -11,11 +10,6 @@ const modelNotExisted = (app, model) =>
     !app._models.some(({ namespace }) => {
     return namespace === model.substring(model.lastIndexOf('/') + 1)
   })
-
-// wrapper of dynamic
-const dynamicWrapper = async () => {
-  return <Bundle load={component} />
-}
 
 function getFlatMenuData(menus) {
   let keys = {}
@@ -39,10 +33,10 @@ export const getRouterData = app => {
       component: asyncComponent(() => import('../routes/')),
     },
     // '/dashboard/monitor': {
-    //   component: dynamicWrapper(() => import('../routes/Dashboard/Monitor')),
+    //   component: asyncComponent(() => import('../routes/Dashboard/Monitor')),
     // },
     // '/dashboard/workplace': {
-    //   component: dynamicWrapper(['project', 'activities', 'chart'], () =>
+    //   component: asyncComponent(['project', 'activities', 'chart'], () =>
     //             import('../routes/Dashboard/Workplace')
     //   ),
     //   // hideInBreadcrumb: true,
@@ -50,89 +44,89 @@ export const getRouterData = app => {
     //   // authority: 'admin',
     // },
     // '/form/basic-form': {
-    //   component: dynamicWrapper(() => import('../routes/Forms/BasicForm')),
+    //   component: asyncComponent(() => import('../routes/Forms/BasicForm')),
     // },
     // '/form/step-form': {
-    //   component: dynamicWrapper(() => import('../routes/Forms/StepForm')),
+    //   component: asyncComponent(() => import('../routes/Forms/StepForm')),
     // },
     // '/form/step-form/info': {
     //   name: '分步表单（填写转账信息）',
-    //   component: dynamicWrapper(() => import('../routes/Forms/StepForm/Step1')),
+    //   component: asyncComponent(() => import('../routes/Forms/StepForm/Step1')),
     // },
     // '/form/step-form/confirm': {
     //   name: '分步表单（确认转账信息）',
-    //   component: dynamicWrapper(() => import('../routes/Forms/StepForm/Step2')),
+    //   component: asyncComponent(() => import('../routes/Forms/StepForm/Step2')),
     // },
     // '/form/step-form/result': {
     //   name: '分步表单（完成）',
-    //   component: dynamicWrapper(() => import('../routes/Forms/StepForm/Step3')),
+    //   component: asyncComponent(() => import('../routes/Forms/StepForm/Step3')),
     // },
     // '/form/advanced-form': {
-    //   component: dynamicWrapper(() => import('../routes/Forms/AdvancedForm')),
+    //   component: asyncComponent(() => import('../routes/Forms/AdvancedForm')),
     // },
     // '/list/table-list': {
-    //   component: dynamicWrapper(() => import('../routes/List/TableList')),
+    //   component: asyncComponent(() => import('../routes/List/TableList')),
     // },
     // '/list/basic-list': {
-    //   component: dynamicWrapper(() => import('../routes/List/BasicList')),
+    //   component: asyncComponent(() => import('../routes/List/BasicList')),
     // },
     // '/list/card-list': {
-    //   component: dynamicWrapper(() => import('../routes/List/CardList')),
+    //   component: asyncComponent(() => import('../routes/List/CardList')),
     // },
     // '/list/search': {
-    //   component: dynamicWrapper(() => import('../routes/List/List')),
+    //   component: asyncComponent(() => import('../routes/List/List')),
     // },
     // '/list/search/projects': {
-    //   component: dynamicWrapper(() => import('../routes/List/Projects')),
+    //   component: asyncComponent(() => import('../routes/List/Projects')),
     // },
     // '/list/search/applications': {
-    //   component: dynamicWrapper(() => import('../routes/List/Applications')),
+    //   component: asyncComponent(() => import('../routes/List/Applications')),
     // },
     // '/list/search/articles': {
-    //   component: dynamicWrapper(() => import('../routes/List/Articles')),
+    //   component: asyncComponent(() => import('../routes/List/Articles')),
     // },
     // '/profile/basic': {
-    //   component: dynamicWrapper(() => import('../routes/Profile/BasicProfile')),
+    //   component: asyncComponent(() => import('../routes/Profile/BasicProfile')),
     // },
     // '/profile/advanced': {
-    //   component: dynamicWrapper(() =>
+    //   component: asyncComponent(() =>
     //             import('../routes/Profile/AdvancedProfile')
     //   ),
     // },
     // '/result/success': {
-    //   component: dynamicWrapper(() => import('../routes/Result/Success')),
+    //   component: asyncComponent(() => import('../routes/Result/Success')),
     // },
     // '/result/fail': {
-    //   component: dynamicWrapper(() => import('../routes/Result/Error')),
+    //   component: asyncComponent(() => import('../routes/Result/Error')),
     // },
     // '/exception/403': {
-    //   component: dynamicWrapper(() => import('../routes/Exception/403')),
+    //   component: asyncComponent(() => import('../routes/Exception/403')),
     // },
     // '/exception/404': {
-    //   component: dynamicWrapper(() => import('../routes/Exception/404')),
+    //   component: asyncComponent(() => import('../routes/Exception/404')),
     // },
     // '/exception/500': {
-    //   component: dynamicWrapper(() => import('../routes/Exception/500')),
+    //   component: asyncComponent(() => import('../routes/Exception/500')),
     // },
     // '/exception/trigger': {
-    //   component: dynamicWrapper(() =>
+    //   component: asyncComponent(() =>
     //             import('../routes/Exception/triggerException')
     //   ),
     // },
-    // '/user': {
-    //   component: dynamicWrapper(() => import('../layouts/UserLayout')),
-    // },
-    // '/user/login': {
-    //   component: dynamicWrapper(() => import('../routes/User/Login')),
-    // },
+    '/user': {
+      component: asyncComponent(() => import('../layouts/UserLayout')),
+    },
+    '/user/login': {
+      component: asyncComponent(() => import('../routes/User/Login')),
+    },
     // '/user/register': {
-    //   component: dynamicWrapper(() => import('../routes/User/Register')),
+    //   component: asyncComponent(() => import('../routes/User/Register')),
     // },
     // '/user/register-result': {
-    //   component: dynamicWrapper(() => import('../routes/User/RegisterResult')),
+    //   component: asyncComponent(() => import('../routes/User/RegisterResult')),
     // },
     // '/user/:id': {
-    //   component: dynamicWrapper(  () => import('../routes/User/SomeComponent')),
+    //   component: asyncComponent(  () => import('../routes/User/SomeComponent')),
     // },
   }
   // Get name from ./menu.js or just set it in the router data.

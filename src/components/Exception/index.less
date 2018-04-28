@@ -1,5 +1,4 @@
-
-
+@import '~antd/lib/style/themes/default.less';
 .exception {
     display: flex;
     align-items: center;
@@ -40,7 +39,7 @@
             margin-bottom: 24px;
         }
         .desc {
-            color: #fff;
+            color: @text-color-secondary;
             font-size: 20px;
             line-height: 28px;
             margin-bottom: 16px;
@@ -53,3 +52,30 @@
     }
 }
 
+@media screen and (max-width: @screen-xl) {
+    .exception {
+        .imgBlock {
+            padding-right: 88px;
+        }
+    }
+}
+
+@media screen and (max-width: @screen-sm) {
+    .exception {
+        display: block;
+        text-align: center;
+        .imgBlock {
+            padding-right: 0;
+            margin: 0 auto 24px;
+        }
+    }
+}
+
+@media screen and (max-width: @screen-xs) {
+    .exception {
+        .imgBlock {
+            margin-bottom: -24px;
+            overflow: hidden;
+        }
+    }
+}
