@@ -119,14 +119,14 @@ export const getRouterData = app => {
     '/user/login': {
       component: asyncComponent(() => import('../routes/User/Login')),
     },
-    // '/user/register': {
-    //   component: asyncComponent(() => import('../routes/User/Register')),
-    // },
-    // '/user/register-result': {
-    //   component: asyncComponent(() => import('../routes/User/RegisterResult')),
-    // },
+    '/user/register': {
+      component: asyncComponent(() => import('../routes/User/Register')),
+    },
+    '/user/register-result': {
+      component: asyncComponent(() => import('../routes/User/RegisterResult')),
+    },
     // '/user/:id': {
-    //   component: asyncComponent(  () => import('../routes/User/SomeComponent')),
+    //   component: asyncComponent(() => import('../routes/User/SomeComponent')),
     // },
   }
   // Get name from ./menu.js or just set it in the router data.

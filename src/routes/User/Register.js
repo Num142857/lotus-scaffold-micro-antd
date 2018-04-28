@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { routerRedux, Link } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom'
 import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd'
 import styles from './Register.less'
 
@@ -33,7 +33,7 @@ export default class Register extends Component {
     const account = this.props.form.getFieldValue('mail')
     if (nextProps.register.status === 'ok') {
       this.props.dispatch(
-        routerRedux.push({
+        BrowserRouter.push({
           pathname: '/user/register-result',
           state: {
             account,
