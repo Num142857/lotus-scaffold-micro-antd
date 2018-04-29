@@ -32,17 +32,20 @@ const extra = (
 
 const actions = <Button type='primary'>返回修改</Button>
 
-export default () => (
-  <PageHeaderLayout>
-    <Card bordered={false}>
-      <Result
-        type='error'
-        title='提交失败'
-        description='请核对并修改以下信息后，再重新提交。'
-        extra={extra}
-        actions={actions}
-        style={{ marginTop: 48, marginBottom: 16 }}
-      />
-    </Card>
-  </PageHeaderLayout>
-)
+export default (props) => {
+  console.log(props)
+  return (
+    <PageHeaderLayout {...props}>
+      <Card bordered={false}>
+        <Result
+          type='error'
+          title='提交失败'
+          description='请核对并修改以下信息后，再重新提交。'
+          extra={extra}
+          actions={actions}
+          style={{ marginTop: 48, marginBottom: 16 }}
+        />
+      </Card>
+    </PageHeaderLayout>
+  )
+}

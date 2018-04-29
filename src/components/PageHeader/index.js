@@ -8,6 +8,7 @@ import { urlToList } from '../_utils/pathTools'
 
 const { TabPane } = Tabs
 export function getBreadcrumb(breadcrumbNameMap, url) {
+  console.log(breadcrumbNameMap)
   let breadcrumb = breadcrumbNameMap[url]
   if (!breadcrumb) {
     Object.keys(breadcrumbNameMap).forEach(item => {
@@ -44,6 +45,8 @@ export default class PageHeader extends PureComponent {
     }
   };
   getBreadcrumbProps = () => {
+    console.log(this.props)
+    console.log(this.context)
     return {
       routes: this.props.routes || this.context.routes,
       params: this.props.params || this.context.params,
@@ -53,6 +56,7 @@ export default class PageHeader extends PureComponent {
   };
   getBreadcrumbDom = () => {
     const breadcrumb = this.conversionBreadcrumbList()
+    console.log(breadcrumb)
     this.setState({
       breadcrumb,
     })
@@ -126,6 +130,7 @@ export default class PageHeader extends PureComponent {
     }
     // 如果传入 routes 和 params 属性
     // If pass routes and params attributes
+    console.log(routes && params)
     if (routes && params) {
       return (
         <Breadcrumb
@@ -139,6 +144,7 @@ export default class PageHeader extends PureComponent {
     }
     // 根据 location 生成 面包屑
     // Generate breadcrumbs based on location
+    console.log(routerLocation && routerLocation.pathname)
     if (routerLocation && routerLocation.pathname) {
       return this.conversionFromLocation(routerLocation, breadcrumbNameMap)
     }
@@ -185,7 +191,7 @@ export default class PageHeader extends PureComponent {
     if (tabActiveKey !== undefined) {
       activeKeyProps.activeKey = tabActiveKey
     }
-
+    console.log(this.state.breadcrumb)
     return (
       <div className={clsString}>
         {this.state.breadcrumb}
