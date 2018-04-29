@@ -130,6 +130,7 @@
     "store": "/bidding-procurement-admin/store.js"
   },
   "devDependencies": {},
+  "theme":"./src/theme.js",
   "_from": "lotus-scaffold-micro-react@0.1.25",
   "_resolved": "http://registry.npm.taobao.org/lotus-scaffold-micro-react/download/lotus-scaffold-micro-react-0.1.25.tgz"
 }
