@@ -99,20 +99,20 @@ export const getRouterData = app => {
     // '/result/fail': {
     //   component: asyncComponent(() => import('../routes/Result/Error')),
     // },
-    // '/exception/403': {
-    //   component: asyncComponent(() => import('../routes/Exception/403')),
-    // },
-    // '/exception/404': {
-    //   component: asyncComponent(() => import('../routes/Exception/404')),
-    // },
-    // '/exception/500': {
-    //   component: asyncComponent(() => import('../routes/Exception/500')),
-    // },
-    // '/exception/trigger': {
-    //   component: asyncComponent(() =>
-    //             import('../routes/Exception/triggerException')
-    //   ),
-    // },
+    '/exception/403': {
+      component: asyncComponent(() => import('../routes/Exception/403')),
+    },
+    '/exception/404': {
+      component: asyncComponent(() => import('../routes/Exception/404')),
+    },
+    '/exception/500': {
+      component: asyncComponent(() => import('../routes/Exception/500')),
+    },
+    '/exception/trigger': {
+      component: asyncComponent(() =>
+                import('../routes/Exception/triggerException')
+      ),
+    },
     '/user': {
       component: asyncComponent(() => import('../layouts/UserLayout')),
     },

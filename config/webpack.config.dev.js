@@ -150,7 +150,7 @@ module.exports = {
             options: {
               plugins: [
                 // 引入样式为 css
-                ['import', { libraryName: 'antd', style: 'css' }],
+                ['import', { libraryName: 'antd', style: true }],
                 // 改动: 引入样式为 less
                 //  ['import', { libraryName: 'antd', style: true }],
               ],

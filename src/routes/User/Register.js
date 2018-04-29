@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd'
 import styles from './Register.less'
 
@@ -32,14 +32,12 @@ export default class Register extends Component {
   componentWillReceiveProps(nextProps) {
     const account = this.props.form.getFieldValue('mail')
     if (nextProps.register.status === 'ok') {
-      this.props.dispatch(
-        BrowserRouter.push({
-          pathname: '/user/register-result',
-          state: {
-            account,
-          },
-        })
-      )
+      this.props.history.push({
+        pathname: '/user/register-result',
+        state: {
+          account,
+        },
+      })
     }
   }
 
@@ -75,13 +73,7 @@ export default class Register extends Component {
     e.preventDefault()
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (!err) {
-        this.props.dispatch({
-          type: 'register/submit',
-          payload: {
-            ...values,
-            prefix: this.state.prefix,
-          },
-        })
+        this.props.history.push('/user/')
       }
     })
   };

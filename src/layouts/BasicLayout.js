@@ -8,6 +8,7 @@ import NotFound from '../routes/Exception/404'
 import { getRoutes } from '../utils/utils'
 import { getMenuData } from '../common/menu'
 import SiderMenu from '../components/SiderMenu/'
+import { enquireScreen, unenquireScreen } from 'enquire-js'
 import './BasicLayout.less'
 
 // import Authorized from '../utils/Authorized'
@@ -36,10 +37,17 @@ const query = {
 export default class BasicLayout extends React.PureComponent {
     state = {
       collapsed: false,
+      isMobile: false
     };
     componentDidMount() {
+      this.enquireHandler = enquireScreen(mobile => {
+        this.setState({
+          isMobile: mobile,
+        })
+      })
     }
     componentWillUnmount() {
+      // 判断是否为手机
       unenquireScreen(this.enquireHandler)
     }
     getPageTitle() {

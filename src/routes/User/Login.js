@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, BrowserRouter } from 'react-router-dom'
 import { Checkbox, Alert, Icon } from 'antd'
 import Login from 'components/Login'
 import styles from './Login.less'
 
+console.log(BrowserRouter)
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login
 
 export default class LoginPage extends Component {
@@ -19,13 +20,8 @@ export default class LoginPage extends Component {
   handleSubmit = (err, values) => {
     const { type } = this.state
     if (!err) {
-      this.props.dispatch({
-        type: 'login/login',
-        payload: {
-          ...values,
-          type,
-        },
-      })
+      // BrowserRouter.push('/')
+      this.props.history.push('/')
     }
   };
 

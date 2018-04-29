@@ -1,11 +1,8 @@
-import React, { PureComponent } from 'react';
-import { Button, Spin, Card } from 'antd';
-import { connect } from 'dva';
-import styles from './style.less';
+import React, { PureComponent } from 'react'
+import { Button, Spin, Card } from 'antd'
+import './style.less'
+import { Link } from 'react-router-dom'
 
-@connect(state => ({
-  isloading: state.error.isloading,
-}))
 export default class TriggerException extends PureComponent {
   state = {
     isloading: false,
@@ -13,32 +10,27 @@ export default class TriggerException extends PureComponent {
   triggerError = code => {
     this.setState({
       isloading: true,
-    });
-    this.props.dispatch({
-      type: 'error/query',
-      payload: {
-        code,
-      },
-    });
+    })
+    this.props.history.push(`/exception/${code}`)
   };
   render() {
     return (
       <Card>
         <Spin spinning={this.state.isloading} wrapperClassName={styles.trigger}>
-          <Button type="danger" onClick={() => this.triggerError(401)}>
+          <Button type='danger' onClick={() => this.triggerError(401)}>
             触发401
           </Button>
-          <Button type="danger" onClick={() => this.triggerError(403)}>
+          <Button type='danger' onClick={() => this.triggerError(403)}>
             触发403
           </Button>
-          <Button type="danger" onClick={() => this.triggerError(500)}>
+          <Button type='danger' onClick={() => this.triggerError(500)}>
             触发500
           </Button>
-          <Button type="danger" onClick={() => this.triggerError(404)}>
+          <Button type='danger' onClick={() => this.triggerError(404)}>
             触发404
           </Button>
         </Spin>
       </Card>
-    );
+    )
   }
 }
