@@ -5,7 +5,7 @@ import Result from 'components/Result'
 import styles from './RegisterResult.less'
 
 const actions = (
-  <div className={styles.actions}>
+  <div className='actions'>
     <a href=''>
       <Button size='large' type='primary'>
         查看邮箱
@@ -19,10 +19,10 @@ const actions = (
 
 export default ({ location }) => (
   <Result
-    className={styles.registerResult}
+    className='registerResult'
     type='success'
     title={
-      <div className={styles.title}>
+      <div className='title'>
         你的账户：{location.state ? location.state.account : 'AntDesign@example.com'} 注册成功
       </div>
     }

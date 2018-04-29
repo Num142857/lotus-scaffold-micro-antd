@@ -93,12 +93,12 @@ export const getRouterData = app => {
     //             import('../routes/Profile/AdvancedProfile')
     //   ),
     // },
-    // '/result/success': {
-    //   component: asyncComponent(() => import('../routes/Result/Success')),
-    // },
-    // '/result/fail': {
-    //   component: asyncComponent(() => import('../routes/Result/Error')),
-    // },
+    '/result/success': {
+      component: asyncComponent(() => import('../routes/Result/Success')),
+    },
+    '/result/fail': {
+      component: asyncComponent(() => import('../routes/Result/Error')),
+    },
     '/exception/403': {
       component: asyncComponent(() => import('../routes/Exception/403')),
     },

@@ -81,7 +81,9 @@ export default class BasicLayout extends React.PureComponent {
       return redirect
     };
     handleMenuCollapse = collapsed => {
-      return true
+      this.setState({
+        collapsed: !this.state.collapsed,
+      })
     };
     handleNoticeClear = type => {
     };
@@ -98,13 +100,14 @@ export default class BasicLayout extends React.PureComponent {
     render() {
       const {
         currentUser,
-        collapsed,
+        // collapsed,
         fetchingNotices,
         notices,
         routerData,
         match,
         location,
       } = this.props
+      const { collapsed } = this.state
       const menus = getMenuData()
       const bashRedirect = this.getBashRedirect()
       const layout = (
@@ -125,7 +128,7 @@ export default class BasicLayout extends React.PureComponent {
               <Icon
                 className='trigger'
                 type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggle}
+                onClick={this.handleMenuCollapse}
               />
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '100vh' }}>

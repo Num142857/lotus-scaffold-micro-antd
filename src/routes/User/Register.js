@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd'
-import styles from './Register.less'
+import './Register.less'
 
 const FormItem = Form.Item
 const { Option } = Select
@@ -31,14 +31,12 @@ export default class Register extends Component {
 
   componentWillReceiveProps(nextProps) {
     const account = this.props.form.getFieldValue('mail')
-    if (nextProps.register.status === 'ok') {
-      this.props.history.push({
-        pathname: '/user/register-result',
-        state: {
-          account,
-        },
-      })
-    }
+    this.props.history.push({
+      pathname: '/user/register-result',
+      state: {
+        account,
+      },
+    })
   }
 
   componentWillUnmount() {
