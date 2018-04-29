@@ -9,9 +9,10 @@ import NotFound from '../routes/Exception/404'
 import { getRoutes } from '../utils/utils'
 import { getMenuData } from '../common/menu'
 import SiderMenu from '../components/SiderMenu/'
+import GlobalHeader from '../components/GlobalHeader'
 import { enquireScreen, unenquireScreen } from 'enquire-js'
 import './BasicLayout.less'
-
+import logo from '../asserts/logo.svg'
 // import Authorized from '../utils/Authorized'
 const { Header, Sider, Content } = Layout
 // const { AuthorizedRoute, check } = Authorized
@@ -176,11 +177,18 @@ export default class BasicLayout extends React.PureComponent {
             onCollapse={this.handleMenuCollapse}
           />
           <Layout >
-            <Header style={{ background: '#fff', padding: 0 }}>
-              <Icon
-                className='trigger'
-                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.handleMenuCollapse}
+            <Header style={{ padding: 0 }}>
+              <GlobalHeader
+                logo={logo}
+                currentUser={currentUser}
+                fetchingNotices={fetchingNotices}
+                notices={notices}
+                collapsed={collapsed}
+                isMobile={this.state.isMobile}
+                onNoticeClear={this.handleNoticeClear}
+                onCollapse={this.handleMenuCollapse}
+                onMenuClick={this.handleMenuClick}
+                onNoticeVisibleChange={this.handleNoticeVisibleChange}
               />
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '100vh' }}>
