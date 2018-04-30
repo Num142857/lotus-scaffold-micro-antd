@@ -175,7 +175,19 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
+              plugins: [
+                // 引入样式为 css
+                ['import', { libraryName: 'antd', style: true }],
+                ['babel-plugin-react-css-modules', {
+                  // generateScopedName: '[name]__[local]',
+                  // filetypes: {
+                  //   '.less': 'postcss-less'
+                  // }
+                }]
 
+                // 改动: 引入样式为 less
+                //  ['import', { libraryName: 'antd', style: true }],
+              ],
               compact: true,
               // publicPath: packageConfig.registerConfig.prefix,
             },
