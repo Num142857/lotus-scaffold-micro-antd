@@ -83,7 +83,7 @@ module.exports = {
     filename: '[name].js?n=[chunkhash:8]',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
-    publicPath: packageConfig.registerConfig.prefix,
+    publicPath: packageConfig.registerConfig.base ? '/' : packageConfig.registerConfig.prefix,
     // Point sourcemap entries to original disk location (format as URL on Windows)
     libraryTarget: 'amd',
     library: packageConfig.registerConfig.name,
@@ -166,7 +166,7 @@ module.exports = {
             options: {
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]',
-              publicPath: packageConfig.registerConfig.prefix,
+              publicPath: packageConfig.registerConfig.base ? '/' : packageConfig.registerConfig.prefix,
             },
           },
           // Process JS with Babel.
@@ -304,7 +304,7 @@ module.exports = {
             exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
-              publicPath: packageConfig.registerConfig.prefix,
+              publicPath: packageConfig.registerConfig.base ? '/' : packageConfig.registerConfig.prefix,
             },
           },
           // ** STOP ** Are you adding a new loader?
