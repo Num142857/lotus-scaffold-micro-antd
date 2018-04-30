@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
-import Result from 'components/Result'
+import Result from 'Components/Result'
 import styles from './RegisterResult.less'
 
 const actions = (

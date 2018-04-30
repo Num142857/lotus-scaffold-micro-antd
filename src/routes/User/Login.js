@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, BrowserRouter } from 'react-router-dom'
 import { Checkbox, Alert, Icon } from 'antd'
-import Login from 'components/Login'
+import Login from 'Components/Login'
 import styles from './Login.less'
 
 console.log(BrowserRouter)

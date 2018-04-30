@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from '../../asserts/logo.svg'
+import logo from '../../assets/logo.svg'
 import './App.css'
 import { observable, action, autorun } from 'mobx'
 import { observer } from 'mobx-react'

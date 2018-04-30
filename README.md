@@ -58,5 +58,5 @@ git push origin feature-v0.1-init
 - Src: 对应src目录
 - Util: 对应'src/utils/'
 - Components: 对应'src/components/',
-- Asserts: 对应'src/asserts/',
+- Assets: 对应'src/assets/',
 - Constant: 对应'src/constant/'

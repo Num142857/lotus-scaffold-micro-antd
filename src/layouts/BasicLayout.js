@@ -8,11 +8,11 @@ import classNames from 'classnames'
 import NotFound from '../routes/Exception/404'
 import { getRoutes } from '../utils/utils'
 import { getMenuData } from '../common/menu'
-import SiderMenu from '../components/SiderMenu/'
+import SiderMenu from '../Components/SiderMenu/'
 import GlobalHeader from '../components/GlobalHeader'
 import { enquireScreen, unenquireScreen } from 'enquire-js'
 import './BasicLayout.less'
-import logo from '../asserts/logo.svg'
+import logo from '../assets/logo.svg'
 // import Authorized from '../utils/Authorized'
 const { Header, Sider, Content } = Layout
 // const { AuthorizedRoute, check } = Authorized

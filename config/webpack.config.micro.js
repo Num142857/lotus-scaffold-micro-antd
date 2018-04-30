@@ -116,7 +116,7 @@ module.exports = {
       Src: path.resolve(__dirname, '../src/'),
       Util: path.resolve(__dirname, '../src/utils/'),
       Components: path.resolve(__dirname, '../src/components/'),
-      Asserts: path.resolve(__dirname, '../src/asserts/'),
+      Assets: path.resolve(__dirname, '../src/assets/'),
       Constant: path.resolve(__dirname, '../src/constant/')
     },
     plugins: [
