@@ -131,6 +131,7 @@
     "prefix": "/bidding-procurement-admin/",
     "main": "/bidding-procurement-admin/main.js",
     "store": "/bidding-procurement-admin/store.js"
+    
   },
   "devDependencies": {},
   "theme": "./src/theme.js",
