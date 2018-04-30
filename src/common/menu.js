@@ -155,8 +155,13 @@ const menuData = [
     ],
   },
 ]
-
-function formatter(data, parentPath = '/', parentAuthority) {
+let originParentPath
+if (NODE_ENV === 'development') {
+  originParentPath = '/'
+} else {
+  originParentPath = `/${appInfo.registerConfig.name}/`
+}
+function formatter(data, parentPath = originParentPath, parentAuthority) {
   return data.map(item => {
     let { path } = item
     if (!isUrl(path)) {
