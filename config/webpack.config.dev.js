@@ -10,20 +10,20 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getClientEnvironment = require('./env')
 const paths = require('./paths')
-const appInfo = require('../package.json')
+const packageConfig = require('../package.json')
 // import { join, resolve } from 'path'
 // console.log()
 let theme = {}
-if (appInfo.theme && typeof (appInfo.theme) === 'string') {
-  let cfgPath = appInfo.theme
+if (packageConfig.theme && typeof (packageConfig.theme) === 'string') {
+  let cfgPath = packageConfig.theme
   // relative path
   if (cfgPath.charAt(0) === '.') {
     cfgPath = path.resolve(process.cwd(), cfgPath)
   }
   const getThemeConfig = require(cfgPath)
   theme = getThemeConfig()
-} else if (appInfo.theme && typeof (appInfo.theme) === 'object') {
-  theme = appInfo.theme
+} else if (packageConfig.theme && typeof (packageConfig.theme) === 'object') {
+  theme = packageConfig.theme
 }
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -103,8 +103,8 @@ module.exports = {
       'react-native': 'react-native-web',
       Src: path.resolve(__dirname, '../src/'),
       Util: path.resolve(__dirname, '../src/utils/'),
-      components: path.resolve(__dirname, '../src/components/'),
-      Asserts: path.resolve(__dirname, '../src/asserts/'),
+      Components: path.resolve(__dirname, '../src/components/'),
+      Assets: path.resolve(__dirname, '../src/assets/'),
       Constant: path.resolve(__dirname, '../src/constant/')
     },
     plugins: [
@@ -165,6 +165,13 @@ module.exports = {
               plugins: [
                 // 引入样式为 css
                 ['import', { libraryName: 'antd', style: true }],
+                ['babel-plugin-react-css-modules', {
+                  // generateScopedName: '[name]__[local]',
+                  // filetypes: {
+                  //   '.less': 'postcss-less'
+                  // }
+                }]
+
                 // 改动: 引入样式为 less
                 //  ['import', { libraryName: 'antd', style: true }],
               ],
@@ -179,8 +186,51 @@ module.exports = {
           // "style" loader turns CSS into JS modules that inject <style> tags.
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
+          // 排除antd的样式
           {
             test: /.(css|less)$/,
+            exclude: /node_modules|antd\.css/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  // modules: true, // 新增对css modules的支持
+                  // localIdentName: '[name]__[local]__[hash:base64:5]',
+                },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+                options: { javascriptEnabled: true, 'modifyVars': theme },
+              },
+
+            ],
+          },
+          // 准对antd的样式
+          {
+            test: /.(css|less)$/,
+            include: /node_modules|antd\.css/,
             use: [
               require.resolve('style-loader'),
               {

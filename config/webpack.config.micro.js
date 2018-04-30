@@ -1,42 +1,55 @@
 
+const autoprefixer = require('autoprefixer')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const eslintFormatter = require('react-dev-utils/eslintFormatter')
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
+const paths = require('./paths')
+const getClientEnvironment = require('./env')
+const packageConfig = require('../package.json')
 
-const autoprefixer = require('autoprefixer');
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const paths = require('./paths');
-const getClientEnvironment = require('./env');
-const packageConfig = require('../package.json');
-
+// import { join, resolve } from 'path'
+// console.log()
+let theme = {}
+if (packageConfig.theme && typeof (packageConfig.theme) === 'string') {
+  let cfgPath = packageConfig.theme
+  // relative path
+  if (cfgPath.charAt(0) === '.') {
+    cfgPath = path.resolve(process.cwd(), cfgPath)
+  }
+  const getThemeConfig = require(cfgPath)
+  theme = getThemeConfig()
+} else if (packageConfig.theme && typeof (packageConfig.theme) === 'object') {
+  theme = packageConfig.theme
+}
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
-const publicPath = paths.servedPath;
+const publicPath = paths.servedPath
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
-const shouldUseRelativeAssetPaths = publicPath === '/';
+const shouldUseRelativeAssetPaths = publicPath === '/'
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-const publicUrl = publicPath.slice(0, -1);
+const publicUrl = publicPath.slice(0, -1)
 // Get environment variables to inject into our app.
-const env = getClientEnvironment(publicUrl);
+const env = getClientEnvironment(publicUrl)
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
+  throw new Error('Production builds must have NODE_ENV=production.')
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
+const cssFilename = 'static/css/[name].[contenthash:8].css'
 
 // ExtractTextPlugin expects the build output to be flat.
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
@@ -44,8 +57,8 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split('/').length).join('../') }
-  : {};
+  { publicPath: Array(cssFilename.split('/').length).join('../') }
+  : {}
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -96,7 +109,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -133,7 +146,7 @@ module.exports = {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
               // publicPath: packageConfig.registerConfig.prefix,
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -162,7 +175,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               compact: true,
               // publicPath: packageConfig.registerConfig.prefix,
             },
@@ -179,22 +192,20 @@ module.exports = {
           // tags. If you use code splitting, however, any async bundles will still
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
+
+          // 排除antd的样式
           {
             test: /.(css|less)$/,
-            
-            // exclude: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../src/App.css')],
-            // exclude: [path.resolve(__dirname, '../src/index.less'), path.resolve(__dirname, '../src/App.css')],
-            exclude: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../src/index.less')],
+            exclude: /node_modules|antd\.css/,
             use: [
               require.resolve('style-loader'),
               {
                 loader: require.resolve('css-loader'),
                 options: {
                   importLoaders: 1,
+                  // modules: true, // 新增对css modules的支持
+                  // localIdentName: '[name]__[local]__[hash:base64:5]',
                 },
-              },
-              {
-                loader: require.resolve('less-loader') // compiles Less to CSS
               },
               {
                 loader: require.resolve('postcss-loader'),
@@ -216,58 +227,51 @@ module.exports = {
                   ],
                 },
               },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+                options: { javascriptEnabled: true, 'modifyVars': theme },
+              },
 
             ],
-            // loader: ExtractTextPlugin.extract(
-            //   Object.assign(
-            //     {
-            //       fallback: {
-            //         loader: require.resolve('style-loader'),
-            //         options: {
-            //           hmr: false,
-            //           // publicPath: packageConfig.registerConfig.prefix,
-            //         },
-            //       },
-            //       use: [
-            //         {
-            //           loader: require.resolve('css-loader'),
-            //           options: {
-            //             importLoaders: 1,
-            //             minimize: true,
-            //             sourceMap: shouldUseSourceMap,
-            //             // publicPath: packageConfig.registerConfig.prefix,
-            //           },
-            //         },
-            //         {
-            //           loader: require.resolve('postcss-loader'),
-            //           options: {
-            //             // publicPath: packageConfig.registerConfig.prefix,
-            //             // Necessary for external CSS imports to work
-            //             // https://github.com/facebookincubator/create-react-app/issues/2677
-            //             ident: 'postcss',
-            //             plugins: () => [
-            //               require('postcss-flexbugs-fixes'),
-            //               autoprefixer({
-            //                 browsers: [
-            //                   '>1%',
-            //                   'last 4 versions',
-            //                   'Firefox ESR',
-            //                   'not ie < 9', // React doesn't support IE8 anyway
-            //                 ],
-            //                 flexbox: 'no-2009',
-            //               }),
-            //             ],
-            //           },
-            //         },
-            //         {
-            //           loader: require.resolve('less-loader') // compiles Less to CSS
-            //         }
-            //       ],
-            //     },
-            //     extractTextPluginOptions
-            //   )
-            // ),
-            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+          },
+          // 准对antd的样式
+          {
+            test: /.(css|less)$/,
+            include: /node_modules|antd\.css/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+                options: { javascriptEnabled: true, 'modifyVars': theme },
+              },
+
+            ],
           },
           // {
           //   test: /.(css|less)$/,
@@ -369,14 +373,14 @@ module.exports = {
       logger(message) {
         if (message.indexOf('Total precache size is') === 0) {
           // This message occurs for every build and is a bit too noisy.
-          return;
+          return
         }
         if (message.indexOf('Skipping static resource') === 0) {
           // This message obscures real errors so we ignore it.
           // https://github.com/facebookincubator/create-react-app/issues/2612
-          return;
+          return
         }
-        console.log(message);
+        console.log(message)
       },
       minify: true,
       // For unknown URLs, fallback to the index page
@@ -403,4 +407,4 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty',
   },
-};
+}

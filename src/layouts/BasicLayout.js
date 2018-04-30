@@ -139,8 +139,17 @@ export default class BasicLayout extends React.PureComponent {
       })
     };
     handleNoticeClear = type => {
+      message.success(`清空了${type}`)
+    //   this.props.history.push('/user/login')
     };
     handleMenuClick = ({ key }) => {
+      if (key === 'triggerError') {
+        this.props.history.push('/exception/trigger')
+        return
+      }
+      if (key === 'logout') {
+        this.props.history.push('/user/login')
+      }
     };
     handleNoticeVisibleChange = visible => {
     };
@@ -152,14 +161,18 @@ export default class BasicLayout extends React.PureComponent {
     }
     render() {
       const {
-        currentUser,
-        // collapsed,
         fetchingNotices,
         notices,
         routerData,
         match,
         location,
       } = this.props
+      const currentUser = {
+        name: 'Serati Ma',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+        userid: '00000001',
+        notifyCount: 12,
+      }
       const { collapsed } = this.state
       const menus = getMenuData()
       const bashRedirect = this.getBashRedirect()
