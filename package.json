@@ -127,7 +127,7 @@
     "extends": "react-app"
   },
   "registerConfig": {
-    "name": "bidding-procurement-admin-base",
+    "name": "bidding-procurement-admin",
     "prefix": "/bidding-procurement-admin/",
     "main": "/bidding-procurement-admin/main.js",
     "store": "/bidding-procurement-admin/store.js"
