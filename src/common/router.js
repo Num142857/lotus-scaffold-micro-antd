@@ -159,11 +159,12 @@ export const getRouterData = app => {
       authority: router.authority || menuItem.authority,
       hideInBreadcrumb: router.hideInBreadcrumb || menuItem.hideInBreadcrumb,
     }
-    if (NODE_ENV === 'development') {
-      routerData[path] = router
-    } else {
-      routerData[`/${appInfo.registerConfig.name}${path}`] = router
-    }
+    routerData[path] = router
+    // if (NODE_ENV === 'development') {
+    //   routerData[path] = router
+    // } else {
+    //   routerData[`/${appInfo.registerConfig.name}${path}`] = router
+    // }
   })
   return routerData
 }
