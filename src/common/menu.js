@@ -1,4 +1,5 @@
 import { isUrl } from '../utils/utils'
+import appInfo from '../../package.json'
 const NODE_ENV = process.env.NODE_ENV
 const menuData = [
   {
