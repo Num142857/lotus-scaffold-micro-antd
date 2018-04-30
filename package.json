@@ -130,8 +130,9 @@
     "name": "bidding-procurement-admin",
     "prefix": "/bidding-procurement-admin/",
     "main": "/bidding-procurement-admin/main.js",
-    "store": "/bidding-procurement-admin/store.js"
-    
+    "store": "/bidding-procurement-admin/store.js",
+    "base":true
+
   },
   "devDependencies": {},
   "theme": "./src/theme.js",
