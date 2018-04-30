@@ -1,5 +1,5 @@
 import { isUrl } from '../utils/utils'
-
+const NODE_ENV = process.env.NODE_ENV
 const menuData = [
   {
     name: 'dashboard',
