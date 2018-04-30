@@ -2,9 +2,10 @@ import React, { createElement } from 'react'
 import pathToRegexp from 'path-to-regexp' // 路径参数转正则的标准工具
 import { getMenuData } from './menu'
 import asyncComponent from './asyncComponent'
+import appInfo from '../../package.json'
 
 let routerDataCache
-
+const NODE_ENV = process.env.NODE_ENV
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line
     !app._models.some(({ namespace }) => {
@@ -25,7 +26,7 @@ function getFlatMenuData(menus) {
 }
 
 export const getRouterData = app => {
-  const routerConfig = {
+  let routerConfig = {
     '/': {
       component: asyncComponent(() => import('../layouts/BasicLayout')),
     },
@@ -129,6 +130,7 @@ export const getRouterData = app => {
     //   component: asyncComponent(() => import('../routes/User/SomeComponent')),
     // },
   }
+
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData())
 
@@ -157,7 +159,11 @@ export const getRouterData = app => {
       authority: router.authority || menuItem.authority,
       hideInBreadcrumb: router.hideInBreadcrumb || menuItem.hideInBreadcrumb,
     }
-    routerData[path] = router
+    if (NODE_ENV === 'development') {
+      routerData[path] = router
+    } else {
+      routerData[`/${appInfo.registerConfig.name}${path}`] = router
+    }
   })
   return routerData
 }
