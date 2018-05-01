@@ -106,9 +106,9 @@ export default class BasicLayout extends React.PureComponent {
     getPageTitle() {
       const { routerData, location } = this.props
       const { pathname } = location
-      let title = '金诚招采管理系统'
+      let title = '微前端-antd'
       if (routerData[pathname] && routerData[pathname].name) {
-        title = `${routerData[pathname].name} - 金诚招采管理系统`
+        title = `${routerData[pathname].name} - 微前端-antd`
       }
       return title
     }
