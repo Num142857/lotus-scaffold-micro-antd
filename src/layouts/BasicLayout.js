@@ -6,6 +6,7 @@ import { ContainerQuery } from 'react-container-query'
 import DocumentTitle from 'react-document-title'
 import classNames from 'classnames'
 import NotFound from '../routes/Exception/404'
+import SubModule from '../routes/SubModule'
 import { getRoutes } from '../utils/utils'
 import { getMenuData } from '../common/menu'
 import SiderMenu from 'Components/SiderMenu/'
@@ -215,7 +216,7 @@ export default class BasicLayout extends React.PureComponent {
 
                 ))}
                 <Redirect exact from='/' to={bashRedirect} />
-                <Route render={NotFound} />
+                <Route render={SubModule} />
               </Switch>
             </Content>
           </Layout>
