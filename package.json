@@ -1,9 +1,9 @@
 {
-  "name": "bidding-procurement-admin",
-  "scaffold": "lotus-scaffold-micro-react",
-  "version": "0.1.25",
+  "name": "lotus-scaffold-micro-antd",
+  "scaffold": "lotus-scaffold-micro-antd",
+  "version": "0.0.1",
   "bin": {
-    "lotus-scaffold-micro-react": "_lotus/bin/index.js"
+    "lotus-scaffold-micro-antd": "_lotus/bin/index.js"
   },
   "dependencies": {
     "antd": "^3.4.3",
@@ -127,15 +127,13 @@
     "extends": "react-app"
   },
   "registerConfig": {
-    "name": "bidding-procurement-admin",
-    "prefix": "/bidding-procurement-admin/",
-    "main": "/bidding-procurement-admin/main.js",
-    "store": "/bidding-procurement-admin/store.js",
+    "name": "lotus-scaffold-micro-antd",
+    "prefix": "/lotus-scaffold-micro-antd/",
+    "main": "/lotus-scaffold-micro-antd/main.js",
+    "store": "/lotus-scaffold-micro-antd/store.js",
     "base":true
 
   },
   "devDependencies": {},
-  "theme": "./src/theme.js",
-  "_from": "lotus-scaffold-micro-react@0.1.25",
-  "_resolved": "http://registry.npm.taobao.org/lotus-scaffold-micro-react/download/lotus-scaffold-micro-react-0.1.25.tgz"
+  "theme": "./src/theme.js"
 }
