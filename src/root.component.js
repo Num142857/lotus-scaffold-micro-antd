@@ -3,8 +3,26 @@ import { Provider } from 'react-redux'
 import App from './models/example/App'
 import BasicLayout from './layouts/BasicLayout'
 import UserLayout from './layouts/UserLayout'
-import { BrowserRouter, Route, hashHistory, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, hashHistory, Switch, Redirect } from 'react-router-dom'
 import { getRouterData } from './common/router'
+import createHistory from 'history/createBrowserHistory'
+
+const history = createHistory()
+
+// Get the current location.
+const location = history.location
+
+// Listen for changes to the current location.
+const unlisten = history.listen((location, action) => {
+  // location is an object like window.location
+  console.log('路由更新了', action, location.pathname, location.state)
+})
+
+// Use push, replace, and go to navigate around.
+// history.push('/home', { some: 'state' })
+
+// To stop listening, call the function returned from listen().
+// unlisten()
 export default class RootComponent extends React.Component {
     state = { store: this.props.store, globalEventDistributor: this.props.globalEventDistributor };
 
@@ -27,12 +45,12 @@ export default class RootComponent extends React.Component {
       console.log(routerData)
       if (this.state.store && this.state.globalEventDistributor) {
         ret = <Provider store={this.state.store}>
-          <BrowserRouter>
+          <HashRouter >
             <Switch>
-              <Route path='/user' render={props => <UserLayout {...customProps} {...props} />} />
-              <Route path='/' render={props => <BasicLayout {...customProps} {...props} />} />
+              <Route path='/user' history={history} render={props => <UserLayout {...customProps} {...props} />} />
+              <Route path='/' history={history} render={props => <BasicLayout {...customProps} {...props} />} />
             </Switch>
-          </BrowserRouter>
+          </HashRouter>
 
         </Provider>
       }
