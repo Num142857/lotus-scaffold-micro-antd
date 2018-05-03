@@ -144,5 +144,5 @@ function formatter(data, parentPath = originParentPath, parentAuthority) {
   })
 }
 
-export const pushStore = (menu) => { menuData.push(menu) }
+export const pushStore = (menu) => { menuData.push(menu); console.log(menuData) }
 export const getMenuData = (menu) => { return formatter(menuData) }
