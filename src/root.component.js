@@ -6,7 +6,7 @@ import UserLayout from './layouts/UserLayout'
 import { BrowserRouter, HashRouter, Route, hashHistory, Switch, Redirect } from 'react-router-dom'
 import { getRouterData } from './common/router'
 import createHistory from 'history/createBrowserHistory'
-
+import axios from './utils/request'
 const history = createHistory()
 
 // Get the current location.
@@ -28,6 +28,10 @@ export default class RootComponent extends React.Component {
 
     componentDidCatch(error, info) {
       console.log(error, info)
+    }
+    async componentWillMount() {
+      let res = await axios.get('/api/fake_chart_data')
+      console.log(res)
     }
 
     setStore(store) {

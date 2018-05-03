@@ -30,9 +30,6 @@ export const getRouterData = app => {
     '/': {
       component: asyncComponent(() => import('../layouts/BasicLayout')),
     },
-    '/test': {
-      component: asyncComponent(() => import('../routes/')),
-    },
     // '/dashboard/monitor': {
     //   component: asyncComponent(() => import('../routes/Dashboard/Monitor')),
     // },

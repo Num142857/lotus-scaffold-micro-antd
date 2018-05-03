@@ -16,7 +16,7 @@ export default class TriggerException extends PureComponent {
   render() {
     return (
       <Card>
-        <Spin spinning={this.state.isloading} wrapperClassName={styles.trigger}>
+        <Spin spinning={this.state.isloading} wrapperClassName='trigger'>
           <Button type='danger' onClick={() => this.triggerError(401)}>
             触发401
           </Button>

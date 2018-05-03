@@ -8,6 +8,8 @@
   "dependencies": {
     "antd": "^3.4.3",
     "autoprefixer": "7.1.6",
+    "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.15.0",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
@@ -52,6 +54,7 @@
     "metalsmith": "^2.3.0",
     "mobx": "^4.0.2",
     "mobx-react": "^5.0.0",
+    "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.1",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
@@ -66,9 +69,12 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
+    "roadhog": "^2.3.0",
+    "roadhog-api-doc": "^1.0.2",
     "single-spa-react": "^2.2.0",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
+    "url": "^0.11.0",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
@@ -131,8 +137,7 @@
     "prefix": "/lotus-scaffold-micro-antd/",
     "main": "/lotus-scaffold-micro-antd/main.js",
     "store": "/lotus-scaffold-micro-antd/store.js",
-    "base":true
-
+    "base": true
   },
   "devDependencies": {},
   "theme": "./src/theme.js"
