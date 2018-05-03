@@ -67,6 +67,9 @@ Object.keys(proxy).forEach((item) => {
     case 'POST':
       mock.onPost(url, proxy[item].params).reply(200, proxy[item].body || proxy[item])
       break
+    case 'DELETE':
+      mock.onDelete(url, proxy[item].params).reply(200, proxy[item].body || proxy[item])
+      break
   }
 })
 
