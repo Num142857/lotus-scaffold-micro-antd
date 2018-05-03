@@ -7,7 +7,7 @@ import { BrowserRouter, HashRouter, Route, hashHistory, Switch, Redirect } from 
 import { getRouterData } from './common/router'
 import { pushStore } from './common/menu'
 import axios from './utils/request'
-
+import _ from 'lodash'
 export default class RootComponent extends React.Component {
     state = { store: this.props.store, globalEventDistributor: this.props.globalEventDistributor };
 
@@ -30,8 +30,15 @@ export default class RootComponent extends React.Component {
       let store = this.state.globalEventDistributor.getState()
       let menu = []
       Object.keys(store).forEach((name) => {
-        console.log(store[name].menu)
-        !!store[name].menu && pushStore(store[name].menu)
+        if (store[name].menu) {
+          if (_.isArray(store[name].menu)) {
+            store[name].menu.forEach((item) => {
+              pushStore(item)
+            })
+          } else {
+            pushStore(store[name].menu)
+          }
+        }
       })
       if (this.state.store && this.state.globalEventDistributor) {
         ret = <Provider store={this.state.store}>
