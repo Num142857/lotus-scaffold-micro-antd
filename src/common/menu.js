@@ -6,6 +6,7 @@ const menuData = [
     name: 'dashboard',
     icon: 'dashboard',
     path: 'dashboard',
+    rank: 1,
     children: [
       {
         name: '分析页',
@@ -23,31 +24,33 @@ const menuData = [
       },
     ],
   },
-  // {
-  //   name: '表单页',
-  //   icon: 'form',
-  //   path: 'form',
-  //   children: [
-  //     {
-  //       name: '基础表单',
-  //       path: 'basic-form',
-  //     },
-  //     {
-  //       name: '分步表单',
-  //       path: 'step-form',
-  //     },
-  //     {
-  //       name: '高级表单',
-  //       authority: 'admin',
-  //       path: 'advanced-form',
-  //     },
-  //   ],
-  // },
+  {
+    name: '表单页',
+    icon: 'form',
+    path: 'form',
+    rank: 2,
+    children: [
+      {
+        name: '基础表单',
+        path: 'basic-form',
+      },
+      {
+        name: '分步表单',
+        path: 'step-form',
+      },
+      {
+        name: '高级表单',
+        authority: 'admin',
+        path: 'advanced-form',
+      },
+    ],
+  },
 
   {
     name: '详情页',
     icon: 'profile',
     path: 'profile',
+    rank: 5,
     children: [
       {
         name: '基础详情页',
@@ -64,6 +67,7 @@ const menuData = [
     name: '结果页',
     icon: 'check-circle-o',
     path: 'result',
+    rank: 6,
     children: [
       {
         name: '成功',
@@ -79,6 +83,7 @@ const menuData = [
     name: '异常页',
     icon: 'warning',
     path: 'exception',
+    rank: 7,
     children: [
       {
         name: '403',
@@ -104,6 +109,7 @@ const menuData = [
     icon: 'user',
     path: 'user',
     authority: 'guest',
+    rank: 8,
     children: [
       {
         name: '登录',
@@ -127,6 +133,7 @@ let originParentPath = '/'
 //   originParentPath = `/${appInfo.registerConfig.name}/`
 // }
 function formatter(data, parentPath = originParentPath, parentAuthority) {
+  data.sort((a, b) => a.rank - b.rank)
   return data.map(item => {
     let { path } = item
     if (!isUrl(path)) {
