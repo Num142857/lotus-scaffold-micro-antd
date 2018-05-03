@@ -30,7 +30,8 @@ export default class RootComponent extends React.Component {
       let store = this.state.globalEventDistributor.getState()
       let menu = []
       Object.keys(store).forEach((name) => {
-        store[name].menu && pushStore(store[name].menu)
+        console.log(store[name].menu)
+        !!store[name].menu && pushStore(store[name].menu)
       })
       if (this.state.store && this.state.globalEventDistributor) {
         ret = <Provider store={this.state.store}>
