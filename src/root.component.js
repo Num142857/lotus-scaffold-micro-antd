@@ -23,7 +23,7 @@ export default class RootComponent extends React.Component {
 
     render() {
       let ret = <div></div>
-      console.log(this.globalEventDistributor.getState())
+      console.log(this.state.globalEventDistributor.getState())
       const routerData = getRouterData()
       let customProps = { routerData: routerData, globalEventDistributor: this.state.globalEventDistributor }
       console.log(routerData)
