@@ -5,6 +5,7 @@ import BasicLayout from './layouts/BasicLayout'
 import UserLayout from './layouts/UserLayout'
 import { BrowserRouter, HashRouter, Route, hashHistory, Switch, Redirect } from 'react-router-dom'
 import { getRouterData } from './common/router'
+import { pushStore } from './common/menu'
 import axios from './utils/request'
 
 export default class RootComponent extends React.Component {
@@ -23,10 +24,14 @@ export default class RootComponent extends React.Component {
 
     render() {
       let ret = <div></div>
-      console.log(this.state.globalEventDistributor.getState())
       const routerData = getRouterData()
       let customProps = { routerData: routerData, globalEventDistributor: this.state.globalEventDistributor }
       console.log(routerData)
+      let store = this.state.globalEventDistributor.getState()
+      let menu = []
+      Object.keys(store).forEach((name) => {
+        pushStore(store[name].menu)
+      })
       if (this.state.store && this.state.globalEventDistributor) {
         ret = <Provider store={this.state.store}>
           <HashRouter >
